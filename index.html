@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Secret Santa: The Hidden Digits</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Outfit:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Background Effects -->
+      <div class="snow-overlay"></div>
+      <div class="ambient-glow"></div>
+
+      <!-- Start Screen (Permissions) -->
+      <section id="start-screen" class="screen active">
+        <div class="content-wrapper">
+          <h1 class="title">Secret Santa</h1>
+          <p class="subtitle">The Riddle of the Sensors</p>
+          <div class="card intro-card">
+            <p>To reveal your secret number, you must solve riddles using your phone's senses.</p>
+            <p class="small-text">We need access to your motion sensors to play.</p>
+          </div>
+          <button id="start-btn" class="btn-primary">Begin the Journey</button>
+        </div>
+      </section>
+
+      <!-- Game Screen -->
+      <section id="game-screen" class="screen hidden">
+        <div class="header">
+          <div id="unlocked-digits-container" class="unlocked-digits-container">
+            <!-- Digits will be injected here -->
+            <span class="digit-slot empty"></span>
+            <span class="digit-slot empty"></span>
+            <span class="digit-slot empty"></span>
+            <span class="digit-slot empty"></span>
+          </div>
+          <div class="level-indicator">Level <span id="level-number">1</span></div>
+        </div>
+
+        <div class="content-wrapper centered">
+          <div class="riddle-container">
+            <h2 class="riddle-title">The First Key</h2>
+            <p id="riddle-text" class="riddle-text">"Begin where nothing moves..."</p>
+          </div>
+
+          <!-- Level 1 Specific UI -->
+          <div id="level-1-ui" class="level-ui">
+            <div class="stillness-meter-container">
+              <div class="stillness-circle">
+                <div id="stillness-progress" class="progress-fill"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Level 2 Specific UI -->
+          <div id="level-2-ui" class="level-ui hidden">
+            <div class="orientation-indicator">
+              <div id="phone-icon" class="phone-icon"></div>
+            </div>
+            <div id="fill-animation" class="fill-animation hidden">
+              <div class="fill-bar"></div>
+            </div>
+          </div>
+
+          <!-- Level 3 Specific UI -->
+          <div id="level-3-ui" class="level-ui hidden">
+            <div class="shake-indicator">
+              <div class="shake-icon">😴</div>
+            </div>
+          </div>
+
+          <!-- Digit Reveal (Hidden by default) -->
+          <div id="digit-reveal" class="digit-reveal hidden">
+            <div class="digit-card">
+              <span class="digit-label">Digit Unlocked</span>
+              <span id="unlocked-digit" class="digit-value">?</span>
+            </div>
+            <button id="next-level-btn" class="btn-primary hidden">Wait for update...</button>
+          </div>
+
+          <!-- Debug Info -->
+          <div
+            id="debug-stats"
+            style="margin-top: 2rem; color: #666; font-size: 0.8rem; font-family: monospace"
+          >
+            Waiting for sensor data...
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
