@@ -97,6 +97,16 @@ class App {
     this.requiredShakeTime = 3000 // 3 seconds of continuous shaking
     this.lastAcceleration = { x: 0, y: 0, z: 0 }
 
+    // Level 4 Logic (Silence)
+    this.silenceTimer = 0
+    this.requiredSilenceTime = 5000 // 4 seconds of silence
+    this.silenceThreshold = 1 // Decibel threshold for detecting sound
+    this.audioContext = null
+    this.analyser = null
+    this.microphone = null
+    this.dataArray = null
+    this.silenceHandler = null
+
     this.debugMode = true // Set to false to hide debug info
 
     this.init()
@@ -107,6 +117,19 @@ class App {
       this.ui.debug.style.display = 'none'
     }
     this.ui.startBtn.addEventListener('click', () => this.handleStart())
+
+    // Setup debug level selector
+    const debugSelector = document.getElementById('debug-level-selector')
+    if (this.debugMode && debugSelector) {
+      debugSelector.classList.remove('hidden')
+      const levelButtons = debugSelector.querySelectorAll('.debug-level-btn')
+      levelButtons.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          const level = parseInt(e.target.dataset.level)
+          this.jumpToLevel(level)
+        })
+      })
+    }
 
     // Add Next Level button listener
     const nextBtn = document.getElementById('next-level-btn')
@@ -128,10 +151,66 @@ class App {
       container: document.getElementById('level-3-ui')
     }
 
+    // Add level 4 UI ref
+    this.ui.level4 = {
+      container: document.getElementById('level-4-ui'),
+      progress: document.getElementById('silence-progress'),
+      status: document.querySelector('#level-4-ui .silence-status'),
+      timer: document.querySelector('#level-4-ui .silence-timer')
+    }
+
     // Initialize fill bar reference
     if (this.ui.level2.fillAnimation) {
       this.ui.level2.fillBar = this.ui.level2.fillAnimation.querySelector('.fill-bar::after')
     }
+  }
+
+  jumpToLevel(level) {
+    // Clean up previous level state
+    this.state.isLevelActive = false
+
+    // Hide all level UIs
+    if (this.ui.level1 && this.ui.level1.container) {
+      this.ui.level1.container.style.display = 'none'
+    }
+    if (this.ui.level2 && this.ui.level2.container) {
+      this.ui.level2.container.classList.add('hidden')
+    }
+    if (this.ui.level3 && this.ui.level3.container) {
+      this.ui.level3.container.classList.add('hidden')
+    }
+    if (this.ui.level4 && this.ui.level4.container) {
+      this.ui.level4.container.classList.add('hidden')
+    }
+
+    // Remove previous event listeners
+    window.removeEventListener('devicemotion', (e) => this.handleMotion(e))
+    window.removeEventListener('deviceorientation', (e) => this.handleOrientation(e))
+    if (this.shakeHandler) {
+      window.removeEventListener('devicemotion', this.shakeHandler)
+    }
+
+    // Close audio context if active
+    if (this.audioContext) {
+      this.audioContext.close()
+      this.audioContext = null
+    }
+
+    // Reset timers
+    this.stillnessTimer = 0
+    this.inversionTimer = 0
+    this.upsideDownTimer = 0
+    this.shakeTimer = 0
+    this.silenceTimer = 0
+
+    // Hide reveal
+    this.ui.reveal.container.classList.add('hidden')
+    this.ui.reveal.digit.textContent = '?'
+
+    // Set the current level and start the game
+    this.state.currentLevel = level
+    this.ui.levelNumber.textContent = level
+    this.handleStart()
   }
 
   async handleStart() {
@@ -144,6 +223,8 @@ class App {
         this.startLevel2()
       } else if (this.state.currentLevel === 3) {
         this.startLevel3()
+      } else if (this.state.currentLevel === 4) {
+        this.startLevel4()
       }
     }
   }
@@ -160,6 +241,8 @@ class App {
       this.startLevel2()
     } else if (this.state.currentLevel === 3) {
       this.startLevel3()
+    } else if (this.state.currentLevel === 4) {
+      this.startLevel4()
     }
   }
 
@@ -418,6 +501,19 @@ class App {
       this.shakeTimer += 16 // Approx 60hz
     }
 
+    // Update UI
+    const percent = (this.shakeTimer / this.requiredShakeTime) * 100
+    const shakeProgress = document.getElementById('shake-progress')
+    if (shakeProgress) {
+      shakeProgress.style.height = `${Math.min(percent, 100)}%`
+    }
+
+    const shakeTimer = document.querySelector('#level-3-ui .shake-timer')
+    if (shakeTimer) {
+      const seconds = (this.shakeTimer / 1000).toFixed(1)
+      shakeTimer.textContent = `${seconds}s`
+    }
+
     // Debug
     if (this.debugMode) {
       const shakePercent = Math.min((this.shakeTimer / this.requiredShakeTime) * 100, 100)
@@ -448,8 +544,138 @@ Progress: ${shakePercent?.toFixed(0)}%`
     // Reveal Digit '1'
     this.revealDigit('1')
 
-    this.ui.nextBtn.textContent = 'Wait for Level 4...'
-    this.ui.nextBtn.classList.add('hidden')
+    this.ui.nextBtn.textContent = 'Start Level 4'
+    this.ui.nextBtn.classList.remove('hidden')
+  }
+
+  // --- LEVEL 4 (SILENCE) ---
+
+  async startLevel4() {
+    this.state.isLevelActive = true
+    this.silenceTimer = 0
+
+    // Update Riddle
+    document.querySelector('.riddle-title').textContent = 'The Fourth Key'
+    this.ui.riddleText.textContent = '"Only quiet minds may proceed."'
+
+    // Show Level 4 UI
+    if (this.ui.level4 && this.ui.level4.container) {
+      this.ui.level4.container.classList.remove('hidden')
+    }
+
+    // Request microphone access
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+
+      // Initialize Audio Context
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)()
+      this.audioContext = audioContext
+
+      // Create analyser node
+      const analyser = audioContext.createAnalyser()
+      this.analyser = analyser
+      analyser.fftSize = 256
+
+      // Connect microphone to analyser
+      const source = audioContext.createMediaStreamSource(stream)
+      source.connect(analyser)
+
+      // Create data array for frequency data
+      this.dataArray = new Uint8Array(analyser.frequencyBinCount)
+
+      // Start audio analysis loop
+      this.silenceHandler = () => this.handleAudioInput()
+      this.analyzeAudio()
+    } catch (error) {
+      console.error('Microphone access denied:', error)
+      alert('Microphone access is required to play this level.')
+      this.state.isLevelActive = false
+    }
+  }
+
+  analyzeAudio() {
+    if (!this.state.isLevelActive || this.state.currentLevel !== 4) return
+
+    this.handleAudioInput()
+    requestAnimationFrame(() => this.analyzeAudio())
+  }
+
+  handleAudioInput() {
+    if (!this.analyser || !this.dataArray) return
+
+    // Get frequency data
+    this.analyser.getByteFrequencyData(this.dataArray)
+
+    // Calculate average frequency (loudness indicator)
+    let sum = 0
+    for (let i = 0; i < this.dataArray.length; i++) {
+      sum += this.dataArray[i]
+    }
+    const average = sum / this.dataArray.length
+
+    // Detect if sound is present
+    const isSilent = average < this.silenceThreshold
+
+    // Update silence timer
+    if (isSilent) {
+      this.silenceTimer += 16 // Approx 60hz
+      if (this.ui.level4.status) {
+        this.ui.level4.status.textContent = '🔇 Silence detected'
+      }
+    } else {
+      // Reset timer if sound detected
+      this.silenceTimer = 0
+      if (this.ui.level4.status) {
+        this.ui.level4.status.textContent = '🔊 Sound detected'
+      }
+    }
+
+    // Update UI
+    const percent = (this.silenceTimer / this.requiredSilenceTime) * 100
+    if (this.ui.level4.progress) {
+      this.ui.level4.progress.style.height = `${Math.min(percent, 100)}%`
+    }
+
+    if (this.ui.level4.timer) {
+      const seconds = (this.silenceTimer / 1000).toFixed(1)
+      this.ui.level4.timer.textContent = `${seconds}s`
+    }
+
+    // Debug
+    if (this.debugMode && this.ui.debug) {
+      this.ui.debug.innerHTML = `
+Level 4 - Silence Detection<br>
+Frequency Average: ${average?.toFixed(0)}<br>
+Threshold: ${this.silenceThreshold}<br>
+Is Silent: ${isSilent ? 'YES' : 'NO'}<br>
+Silence Time: ${this.silenceTimer?.toFixed(0)}ms / ${this.requiredSilenceTime}ms<br>
+Progress: ${percent?.toFixed(0)}%`
+    }
+
+    // Check if required silence time reached
+    if (this.silenceTimer >= this.requiredSilenceTime) {
+      this.completeLevel4()
+    }
+  }
+
+  completeLevel4() {
+    this.state.isLevelActive = false
+
+    // Stop audio context
+    if (this.audioContext) {
+      this.audioContext.close()
+      this.audioContext = null
+    }
+
+    if (this.ui.level4 && this.ui.level4.container) {
+      this.ui.level4.container.classList.add('hidden')
+    }
+
+    // Reveal Digit '9'
+    this.revealDigit('9')
+
+    this.ui.nextBtn.textContent = 'All Levels Complete!'
+    this.ui.nextBtn.classList.remove('hidden')
   }
 
   revealDigit(digit) {

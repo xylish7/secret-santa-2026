@@ -34,6 +34,17 @@
             <p class="small-text">We need access to your motion sensors to play.</p>
           </div>
           <button id="start-btn" class="btn-primary">Begin the Journey</button>
+
+          <!-- Debug Level Selector -->
+          <div id="debug-level-selector" class="debug-level-selector hidden">
+            <p class="debug-label">Debug: Jump to Level</p>
+            <div class="level-buttons">
+              <button class="debug-level-btn" data-level="1">Level 1</button>
+              <button class="debug-level-btn" data-level="2">Level 2</button>
+              <button class="debug-level-btn" data-level="3">Level 3</button>
+              <button class="debug-level-btn" data-level="4">Level 4</button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -77,8 +88,19 @@
 
           <!-- Level 3 Specific UI -->
           <div id="level-3-ui" class="level-ui hidden">
-            <div class="shake-indicator">
-              <div class="shake-icon">😴</div>
+            <div class="shake-meter-container">
+              <div class="shake-circle">
+                <div id="shake-progress" class="progress-fill"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Level 4 Specific UI -->
+          <div id="level-4-ui" class="level-ui hidden">
+            <div class="silence-meter-container">
+              <div class="silence-circle">
+                <div id="silence-progress" class="progress-fill"></div>
+              </div>
             </div>
           </div>
 

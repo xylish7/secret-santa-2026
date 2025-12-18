@@ -209,6 +209,54 @@ h1.title {
   display: none;
 }
 
+/* Debug Level Selector */
+.debug-level-selector {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px dashed rgba(212, 175, 55, 0.3);
+  border-radius: 8px;
+}
+
+.debug-level-selector.hidden {
+  display: none;
+}
+
+.debug-label {
+  font-size: 0.9rem;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.level-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.debug-level-btn {
+  background: rgba(192, 57, 43, 0.6);
+  color: white;
+  border: 1px solid var(--accent-gold);
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  font-family: var(--font-heading);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.debug-level-btn:hover {
+  background: rgba(192, 57, 43, 0.8);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+.debug-level-btn:active {
+  transform: scale(0.95);
+}
+
 /* Level 1 Specific */
 .stillness-meter-container {
   display: flex;
@@ -320,32 +368,70 @@ h1.title {
 }
 
 /* Level 3 Specific (Shake) */
-.shake-indicator {
+.shake-meter-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
-.shake-icon {
-  font-size: 5rem;
-  animation: shake 1s ease-in-out infinite;
+.shake-circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.2);
 }
 
-@keyframes shake {
-  0%,
-  100% {
-    transform: rotate(0deg) translateX(0);
-  }
-  25% {
-    transform: rotate(-5deg) translateX(-10px);
-  }
-  50% {
-    transform: rotate(5deg) translateX(10px);
-  }
-  75% {
-    transform: rotate(-5deg) translateX(-10px);
-  }
+.shake-circle .progress-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(90deg, var(--accent-red), var(--accent-gold));
+  transition: height 0.1s linear;
+  box-shadow: 0 0 20px rgba(192, 57, 43, 0.5);
+}
+
+.silence-status {
+  font-size: 1.2rem;
+  color: var(--accent-gold);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  min-height: 1.5rem;
+}
+
+.silence-meter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.silence-circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+.silence-circle .progress-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(90deg, var(--accent-red), var(--accent-gold));
+  transition: height 0.1s linear;
+  box-shadow: 0 0 20px rgba(192, 57, 43, 0.5);
 }
 
 /* Digit Reveal */
