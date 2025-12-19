@@ -167,7 +167,7 @@ class Level7Location {
     this.app.ui.level7.container.classList.add('hidden')
 
     // Reveal Digit '3'
-    this.app.revealDigit('3')
+    this.app.revealDigit('2')
 
     // Prepare for next level
     this.app.ui.nextBtn.textContent = 'Start Level 8'

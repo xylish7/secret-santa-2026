@@ -140,7 +140,7 @@ Progress: ${darknessPercent?.toFixed(0)}%`
     }
 
     // Reveal Digit '9'
-    this.app.revealDigit('2')
+    this.app.revealDigit('1')
 
     this.app.ui.nextBtn.textContent = 'Start Level 6'
     this.app.ui.nextBtn.classList.remove('hidden')

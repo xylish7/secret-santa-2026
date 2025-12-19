@@ -352,7 +352,7 @@ Status: ${
     }
 
     // Reveal Digit '2'
-    this.app.revealDigit('2')
+    this.app.revealDigit('3')
 
     this.app.ui.nextBtn.textContent = 'Start Level 7'
     this.app.ui.nextBtn.classList.remove('hidden')
