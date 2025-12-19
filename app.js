@@ -15,6 +15,9 @@ class SensorManager {
     // Check if permissions are needed (iOS 13+)
     let motionGranted = false
     let orientationGranted = false
+    let cameraGranted = false
+    let microphoneGranted = false
+    let locationGranted = false
 
     // 1. DeviceMotionEvent
     if (
@@ -44,6 +47,39 @@ class SensorManager {
       }
     } else {
       orientationGranted = true // Not required
+    }
+
+    // 4. Microphone Permission
+    try {
+      const audioStream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      audioStream.getTracks().forEach((track) => track.stop())
+      microphoneGranted = true
+    } catch (error) {
+      console.warn('Microphone permission denied or unavailable:', error)
+      microphoneGranted = false
+    }
+
+    // 5. Location Permission
+    if ('geolocation' in navigator) {
+      try {
+        const position = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject)
+        })
+        locationGranted = true
+      } catch (error) {
+        console.warn('Location permission denied or unavailable:', error)
+        locationGranted = false
+      }
+    }
+
+    // 3. Camera Permission
+    try {
+      const cameraStream = await navigator.mediaDevices.getUserMedia({ video: true })
+      cameraStream.getTracks().forEach((track) => track.stop())
+      cameraGranted = true
+    } catch (error) {
+      console.warn('Camera permission denied or unavailable:', error)
+      cameraGranted = false
     }
 
     this.hasPermission = motionGranted && orientationGranted
