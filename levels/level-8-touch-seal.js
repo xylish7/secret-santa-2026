@@ -168,6 +168,7 @@ class Level8TouchSeal {
     }
 
     this.draw()
+    this.updateStatus()
   }
 
   handleTouchMove = (e) => {

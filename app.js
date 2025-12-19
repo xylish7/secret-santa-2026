@@ -116,7 +116,7 @@ class App {
       this.ui.level2.fillBar = this.ui.level2.fillAnimation.querySelector('.fill-bar::after')
     }
 
-    this.debugMode = false // Set to false to hide debug info
+    this.debugMode = true // Set to false to hide debug info
 
     // Level instances
     this.levels = {
