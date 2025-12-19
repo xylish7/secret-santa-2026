@@ -46,6 +46,7 @@
               <button class="debug-level-btn" data-level="5">Level 5</button>
               <button class="debug-level-btn" data-level="6">Level 6</button>
               <button class="debug-level-btn" data-level="7">Level 7</button>
+              <button class="debug-level-btn" data-level="8">Level 8</button>
             </div>
           </div>
         </div>
@@ -160,6 +161,13 @@
             <p class="location-status">🗺️ Initializing GPS...</p>
           </div>
 
+          <!-- Level 8 Specific UI -->
+          <div id="level-8-ui" class="level-ui hidden">
+            <div class="touch-seal-container">
+              <p class="touch-seal-status">✋ Place 5 fingers on the circles</p>
+            </div>
+          </div>
+
           <!-- Digit Reveal (Hidden by default) -->
           <div id="digit-reveal" class="digit-reveal hidden">
             <div class="digit-card">
@@ -188,6 +196,7 @@
     <script src="levels/level-5-darkness.js"></script>
     <script src="levels/level-6-shape.js"></script>
     <script src="levels/level-7-location.js"></script>
+    <script src="levels/level-8-touch-seal.js"></script>
 
     <!-- Main App -->
     <script src="app.js"></script>

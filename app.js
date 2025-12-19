@@ -114,6 +114,11 @@ class App {
       status: document.querySelector('#level-7-ui .location-status')
     }
 
+    this.ui.level8 = {
+      container: document.getElementById('level-8-ui'),
+      status: document.querySelector('#level-8-ui .touch-seal-status')
+    }
+
     // Initialize fill bar reference
     if (this.ui.level2.fillAnimation) {
       this.ui.level2.fillBar = this.ui.level2.fillAnimation.querySelector('.fill-bar::after')
@@ -129,7 +134,8 @@ class App {
       4: null,
       5: null,
       6: null,
-      7: null
+      7: null,
+      8: null
     }
     this.currentLevelInstance = null
 
@@ -176,6 +182,7 @@ class App {
     this.levels[5] = new Level5Darkness(this)
     this.levels[6] = new Level6Shape(this)
     this.levels[7] = new Level7Location(this)
+    this.levels[8] = new Level8TouchSeal(this)
   }
 
   jumpToLevel(level) {
@@ -205,6 +212,9 @@ class App {
     }
     if (this.ui.level7 && this.ui.level7.container) {
       this.ui.level7.container.classList.add('hidden')
+    }
+    if (this.ui.level8 && this.ui.level8.container) {
+      this.ui.level8.container.classList.add('hidden')
     }
 
     // Reset timers
@@ -248,6 +258,9 @@ class App {
         } else if (this.state.currentLevel === 7) {
           this.currentLevelInstance = this.levels[7]
           this.currentLevelInstance.start()
+        } else if (this.state.currentLevel === 8) {
+          this.currentLevelInstance = this.levels[8]
+          this.currentLevelInstance.start()
         }
       } else {
         console.log('Permissions not granted')
@@ -282,6 +295,9 @@ class App {
       this.currentLevelInstance.start()
     } else if (this.state.currentLevel === 7) {
       this.currentLevelInstance = this.levels[7]
+      this.currentLevelInstance.start()
+    } else if (this.state.currentLevel === 8) {
+      this.currentLevelInstance = this.levels[8]
       this.currentLevelInstance.start()
     }
   }
