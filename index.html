@@ -45,6 +45,7 @@
               <button class="debug-level-btn" data-level="4">Level 4</button>
               <button class="debug-level-btn" data-level="5">Level 5</button>
               <button class="debug-level-btn" data-level="6">Level 6</button>
+              <button class="debug-level-btn" data-level="7">Level 7</button>
             </div>
           </div>
         </div>
@@ -127,6 +128,38 @@
             <p class="shape-status">✏️ Draw a triangle</p>
           </div>
 
+          <!-- Level 7 Specific UI -->
+          <div id="level-7-ui" class="level-ui hidden">
+            <div class="location-meter-container">
+              <div class="location-circle">
+                <svg class="location-progress-svg" viewBox="0 0 100 100">
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="45"
+                    fill="none"
+                    stroke="rgba(255, 255, 255, 0.2)"
+                    stroke-width="4"
+                  />
+                  <circle
+                    id="location-progress"
+                    cx="50"
+                    cy="50"
+                    r="45"
+                    fill="none"
+                    stroke="#4CAF50"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                    stroke-dasharray="0 283"
+                    transform="rotate(-90 50 50)"
+                  />
+                </svg>
+                <div class="location-icon">📍</div>
+              </div>
+            </div>
+            <p class="location-status">🗺️ Initializing GPS...</p>
+          </div>
+
           <!-- Digit Reveal (Hidden by default) -->
           <div id="digit-reveal" class="digit-reveal hidden">
             <div class="digit-card">
@@ -154,6 +187,7 @@
     <script src="levels/level-4-silence.js"></script>
     <script src="levels/level-5-darkness.js"></script>
     <script src="levels/level-6-shape.js"></script>
+    <script src="levels/level-7-location.js"></script>
 
     <!-- Main App -->
     <script src="app.js"></script>

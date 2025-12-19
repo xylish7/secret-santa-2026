@@ -1,0 +1,214 @@
+class Level7Location {
+  constructor(app) {
+    this.app = app
+
+    // Level 7 Logic - Location
+    this.targetLatitude = 44.4179171
+    this.targetLongitude = 26.0019865
+    this.requiredAccuracy = 5 // meters
+    this.checkInterval = null
+    this.watchId = null
+    this.lastKnownPosition = null
+    this.isWithinRange = false
+    this.proximityCheckDelay = 5000 // 5 seconds
+    this.proximityTimer = 0
+  }
+
+  start() {
+    this.app.state.isLevelActive = true
+    // Update Riddle
+    document.querySelector('.riddle-title').textContent = 'The Seventh Key'
+    this.app.ui.riddleText.textContent = '"The answer waits where you get the food."'
+
+    // Show Level 7 UI
+    this.app.ui.level7.container.classList.remove('hidden')
+
+    // Check if geolocation is supported
+    if (!navigator.geolocation) {
+      this.showError('Geolocation is not supported by this browser.')
+      return
+    }
+
+    // Request location permission and start watching position
+    this.startLocationTracking()
+  }
+
+  startLocationTracking() {
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 1000
+    }
+
+    this.updateStatus('🗺️ Requesting location permission...')
+
+    // Watch position continuously
+    this.watchId = navigator.geolocation.watchPosition(
+      (position) => this.handlePosition(position),
+      (error) => this.handleLocationError(error),
+      options
+    )
+
+    // Start checking proximity periodically
+    this.checkInterval = setInterval(() => this.checkProximity(), 1000)
+  }
+
+  handlePosition(position) {
+    if (!this.app.state.isLevelActive || this.app.state.currentLevel !== 7) return
+
+    this.lastKnownPosition = position
+    const { latitude, longitude, accuracy } = position.coords
+
+    // Debug
+    if (this.app.debugMode) {
+      this.app.ui.debug.innerHTML = `
+        Current: ${latitude.toFixed(6)}, ${longitude.toFixed(6)}<br>
+        Target: ${this.targetLatitude}, ${this.targetLongitude}<br>
+        Accuracy: ${accuracy.toFixed(0)}m<br>
+        Distance: ${this.calculateDistance(latitude, longitude).toFixed(0)}m<br>
+        Within Range: ${this.isWithinRange}
+      `
+    }
+
+    const distance = this.calculateDistance(latitude, longitude)
+
+    // Update UI with current status
+    if (accuracy > 50) {
+      this.updateStatus('🛰️ Improving GPS accuracy...')
+    } else if (distance > 1000) {
+      this.updateStatus('🗺️ You are far from the destination')
+    } else if (distance > 200) {
+      this.updateStatus('🚶 Getting closer... Keep walking')
+    } else if (distance > 100) {
+      this.updateStatus('🎯 Very close! Almost there')
+    } else {
+      this.updateStatus('📍 You have arrived at the location!')
+      this.isWithinRange = true
+    }
+
+    this.updateProgress(distance)
+  }
+
+  handleLocationError(error) {
+    let message = 'Location error: '
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        message = '❌ Location access denied. Please enable location permissions.'
+        break
+      case error.POSITION_UNAVAILABLE:
+        message = '📡 Location information unavailable. Try going outside.'
+        break
+      case error.TIMEOUT:
+        message = '⏰ Location request timed out. Trying again...'
+        break
+      default:
+        message = '❓ Unknown location error occurred.'
+        break
+    }
+
+    this.updateStatus(message)
+
+    if (this.app.debugMode) {
+      this.app.ui.debug.innerHTML = `Location Error: ${error.code} - ${error.message}`
+    }
+  }
+
+  calculateDistance(lat1, lon1) {
+    const lat2 = this.targetLatitude
+    const lon2 = this.targetLongitude
+
+    const R = 6371e3 // Earth's radius in meters
+    const φ1 = (lat1 * Math.PI) / 180
+    const φ2 = (lat2 * Math.PI) / 180
+    const Δφ = ((lat2 - lat1) * Math.PI) / 180
+    const Δλ = ((lon2 - lon1) * Math.PI) / 180
+
+    const a =
+      Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+      Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2)
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+
+    return R * c // Distance in meters
+  }
+
+  updateStatus(message) {
+    if (this.app.ui.level7.status) {
+      this.app.ui.level7.status.textContent = message
+    }
+  }
+
+  updateProgress(distance) {
+    if (!this.app.ui.level7.progress) return
+
+    // Progress based on inverse distance (closer = more progress)
+    // Max distance for progress calculation: 500m
+    const maxDistance = 500
+    const clampedDistance = Math.min(distance, maxDistance)
+    const progress = Math.max(0, (maxDistance - clampedDistance) / maxDistance)
+
+    this.app.ui.level7.progress.style.strokeDasharray = `${progress * 283} 283`
+  }
+
+  checkProximity() {
+    if (!this.app.state.isLevelActive || this.app.state.currentLevel !== 7) return
+
+    if (this.isWithinRange && this.lastKnownPosition) {
+      const distance = this.calculateDistance(
+        this.lastKnownPosition.coords.latitude,
+        this.lastKnownPosition.coords.longitude
+      )
+
+      if (distance <= this.requiredAccuracy) {
+        this.proximityTimer += 1000 // Add 1 second
+
+        if (this.proximityTimer >= this.proximityCheckDelay) {
+          this.completePuzzle()
+        } else {
+          const remaining = Math.ceil((this.proximityCheckDelay - this.proximityTimer) / 1000)
+          this.updateStatus(`✅ Confirming location... ${remaining}s`)
+        }
+      } else {
+        this.proximityTimer = 0 // Reset timer if moved away
+        this.isWithinRange = false
+      }
+    }
+  }
+
+  completePuzzle() {
+    // Success! Unlock digit 7
+    this.app.state.isLevelActive = false
+    this.cleanup()
+
+    // Hide level 7 UI
+    this.app.ui.level7.container.classList.add('hidden')
+
+    // Reveal Digit '3'
+    this.app.revealDigit('3')
+
+    // Prepare for next level
+    this.app.ui.nextBtn.textContent = 'Start Level 8'
+    this.app.ui.nextBtn.classList.remove('hidden')
+  }
+
+  showError(message) {
+    this.updateStatus(`❌ ${message}`)
+  }
+
+  cleanup() {
+    // Clear intervals and watchers
+    if (this.checkInterval) {
+      clearInterval(this.checkInterval)
+      this.checkInterval = null
+    }
+
+    if (this.watchId !== null) {
+      navigator.geolocation.clearWatch(this.watchId)
+      this.watchId = null
+    }
+
+    // Reset state
+    this.isWithinRange = false
+    this.proximityTimer = 0
+    this.lastKnownPosition = null
+  }
+}
