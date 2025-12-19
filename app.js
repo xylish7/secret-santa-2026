@@ -262,6 +262,40 @@ class App {
   }
 
   startNextLevel() {
+    // Reset level active state
+    this.state.isLevelActive = false
+
+    // Clean up previous level
+    if (this.currentLevelInstance) {
+      this.currentLevelInstance.cleanup()
+    }
+
+    // Hide all level UIs
+    if (this.ui.level1 && this.ui.level1.container) {
+      this.ui.level1.container.style.display = 'none'
+    }
+    if (this.ui.level2 && this.ui.level2.container) {
+      this.ui.level2.container.classList.add('hidden')
+    }
+    if (this.ui.level3 && this.ui.level3.container) {
+      this.ui.level3.container.classList.add('hidden')
+    }
+    if (this.ui.level4 && this.ui.level4.container) {
+      this.ui.level4.container.classList.add('hidden')
+    }
+    if (this.ui.level5 && this.ui.level5.container) {
+      this.ui.level5.container.classList.add('hidden')
+    }
+    if (this.ui.level6 && this.ui.level6.container) {
+      this.ui.level6.container.classList.add('hidden')
+    }
+    if (this.ui.level7 && this.ui.level7.container) {
+      this.ui.level7.container.classList.add('hidden')
+    }
+    if (this.ui.level8 && this.ui.level8.container) {
+      this.ui.level8.container.classList.add('hidden')
+    }
+
     // Hide reveal
     this.ui.reveal.container.classList.add('hidden')
     this.ui.reveal.digit.textContent = '?'
@@ -310,10 +344,8 @@ class App {
     this.ui.reveal.digit.textContent = digit
 
     // Add to unlocked digits
-    if (!this.state.unlockedDigits.includes(digit)) {
-      this.state.unlockedDigits.push(digit)
-      this.updateUnlockedDigitsUI()
-    }
+    this.state.unlockedDigits.push(digit)
+    this.updateUnlockedDigitsUI()
   }
 
   updateUnlockedDigitsUI() {

@@ -140,9 +140,9 @@ Progress: ${darknessPercent?.toFixed(0)}%`
     }
 
     // Reveal Digit '9'
-    this.app.revealDigit('9')
+    this.app.revealDigit('2')
 
-    this.app.ui.nextBtn.textContent = 'Continue'
+    this.app.ui.nextBtn.textContent = 'Start Level 6'
     this.app.ui.nextBtn.classList.remove('hidden')
   }
 
@@ -157,5 +157,6 @@ Progress: ${darknessPercent?.toFixed(0)}%`
     }
 
     this.darknessTimer = 0
+    this.app.state.isLevelActive = false
   }
 }

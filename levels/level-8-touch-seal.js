@@ -444,6 +444,8 @@ class Level8TouchSeal {
     // Wait a moment, then reveal the digit
     setTimeout(() => {
       this.app.revealDigit(8)
+      this.app.ui.nextBtn.textContent = 'All Levels Complete!'
+      this.app.ui.nextBtn.classList.remove('hidden')
     }, 1500)
   }
 

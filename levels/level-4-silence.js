@@ -125,7 +125,7 @@ Progress: ${percent?.toFixed(0)}%`
     // Reveal Digit '9'
     this.app.revealDigit('9')
 
-    this.app.ui.nextBtn.textContent = 'All Levels Complete!'
+    this.app.ui.nextBtn.textContent = 'Start Level 5'
     this.app.ui.nextBtn.classList.remove('hidden')
   }
 
@@ -138,5 +138,6 @@ Progress: ${percent?.toFixed(0)}%`
       this.audioContext = null
     }
     this.silenceTimer = 0
+    this.app.state.isLevelActive = false
   }
 }

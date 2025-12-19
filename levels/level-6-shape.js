@@ -235,6 +235,7 @@ Status: ${
       }
     } else {
       this.clearCanvas()
+    }
   }
 
   detectCorners() {
@@ -353,7 +354,7 @@ Status: ${
     // Reveal Digit '2'
     this.app.revealDigit('2')
 
-    this.app.ui.nextBtn.textContent = 'Continue'
+    this.app.ui.nextBtn.textContent = 'Start Level 7'
     this.app.ui.nextBtn.classList.remove('hidden')
   }
 
