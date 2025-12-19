@@ -59,19 +59,6 @@ class SensorManager {
       microphoneGranted = false
     }
 
-    // 5. Location Permission
-    if ('geolocation' in navigator) {
-      try {
-        const position = await new Promise((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(resolve, reject)
-        })
-        locationGranted = true
-      } catch (error) {
-        console.warn('Location permission denied or unavailable:', error)
-        locationGranted = false
-      }
-    }
-
     // 3. Camera Permission
     try {
       const cameraStream = await navigator.mediaDevices.getUserMedia({ video: true })
@@ -80,6 +67,24 @@ class SensorManager {
     } catch (error) {
       console.warn('Camera permission denied or unavailable:', error)
       cameraGranted = false
+    }
+
+    // 5. Location Permission
+    if ('geolocation' in navigator) {
+      try {
+        const position = await Promise.race([
+          new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject)
+          }),
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Geolocation timeout')), 5000)
+          )
+        ])
+        locationGranted = true
+      } catch (error) {
+        console.warn('Location permission denied or unavailable:', error)
+        locationGranted = false
+      }
     }
 
     this.hasPermission = motionGranted && orientationGranted
@@ -152,7 +157,7 @@ class App {
       this.ui.level2.fillBar = this.ui.level2.fillAnimation.querySelector('.fill-bar::after')
     }
 
-    this.debugMode = true // Set to false to hide debug info
+    this.debugMode = false // Set to false to hide debug info
 
     // Level instances
     this.levels = {

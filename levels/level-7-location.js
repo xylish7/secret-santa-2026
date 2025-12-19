@@ -23,6 +23,9 @@ class Level7Location {
     // Show Level 7 UI
     this.app.ui.level7.container.classList.remove('hidden')
 
+    // Cache the gradient circle element
+    this.gradientCircle = document.getElementById('location-gradient-circle')
+
     // Check if geolocation is supported
     if (!navigator.geolocation) {
       this.showError('Geolocation is not supported by this browser.')
@@ -123,15 +126,23 @@ class Level7Location {
   }
 
   updateProgress(distance) {
-    if (!this.app.ui.level7.progress) return
+    if (!this.gradientCircle) return
 
-    // Progress based on inverse distance (closer = more progress)
-    // Max distance for progress calculation: 500m
-    const maxDistance = 500
-    const clampedDistance = Math.min(distance, maxDistance)
-    const progress = Math.max(0, (maxDistance - clampedDistance) / maxDistance)
+    // Calculate proximity ratio: 0 = very far (hot/red), 1 = very close (cold/blue)
+    // Max distance for gradient calculation: 1000m
+    const maxDistance = 1000
+    const ratio = Math.max(0, Math.min(1, 1 - distance / maxDistance))
 
-    this.app.ui.level7.progress.style.strokeDasharray = `${progress * 283} 283`
+    // Interpolate color from red (hot) to blue (cold)
+    const red = Math.round(255 - ratio * 180) // 255 (red) → 75 (blue)
+    const green = Math.round(68 + ratio * 20) // 68 → 88
+    const blue = Math.round(68 + ratio * 180) // 68 (red) → 248 (blue)
+
+    // Glow size and intensity increase as you get closer
+    const glowSize = 30 + ratio * 30
+    const glowIntensity = 0.3 + ratio * 0.5
+
+    this.gradientCircle.style.boxShadow = `0 0 ${glowSize}px rgba(${red}, ${green}, ${blue}, ${glowIntensity}), inset 0 0 20px rgba(0, 0, 0, 0.5)`
   }
 
   checkProximity() {

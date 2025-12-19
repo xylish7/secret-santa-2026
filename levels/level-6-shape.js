@@ -175,14 +175,16 @@ class Level6Shape {
     // Detect corners using angle analysis
     const corners = this.detectCorners()
 
-    // Draw circles at detected corners on the canvas for visual feedback
-    this.ctx.strokeStyle = 'rgba(0, 255, 0, 0.8)'
-    this.ctx.lineWidth = 3
-    corners.forEach((c) => {
-      this.ctx.beginPath()
-      this.ctx.arc(c.point.x, c.point.y, 15, 0, Math.PI * 2)
-      this.ctx.stroke()
-    })
+    // Draw circles at detected corners on the canvas for visual feedback (debug only)
+    if (this.app.debugMode) {
+      this.ctx.strokeStyle = 'rgba(0, 255, 0, 0.8)'
+      this.ctx.lineWidth = 3
+      corners.forEach((c) => {
+        this.ctx.beginPath()
+        this.ctx.arc(c.point.x, c.point.y, 15, 0, Math.PI * 2)
+        this.ctx.stroke()
+      })
+    }
 
     // Debug
     if (this.app.debugMode) {

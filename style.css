@@ -356,7 +356,7 @@ h1.title {
   left: 0;
   width: 0%;
   height: 100%;
-  background: linear-gradient(90deg, var(--accent-red), var(--accent-gold));
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-red));
   transition: width 0.1s linear;
   box-shadow: 0 0 20px rgba(192, 57, 43, 0.5);
 }
@@ -524,40 +524,14 @@ h1.title {
   gap: 1rem;
 }
 
-.location-circle {
+.location-gradient-circle {
   width: 200px;
   height: 200px;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.location-progress-svg {
-  width: 100%;
-  height: 100%;
-  transform: rotate(-90deg);
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.location-icon {
-  font-size: 3rem;
-  color: var(--accent-gold);
-  z-index: 2;
-  position: relative;
-  animation: locationPulse 2s infinite;
-}
-
-@keyframes locationPulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
+  border-radius: 50%;
+  background: #2a2a2a;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 30px rgba(255, 68, 68, 0.4), inset 0 0 20px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.3s ease;
 }
 
 /* Level 8 - Touch Seal */
