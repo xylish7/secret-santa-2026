@@ -524,6 +524,25 @@ h1.title {
   font-family: monospace;
 }
 
+/* Level 6 - Shape Drawing */
+.drawing-canvas {
+  width: 100%;
+  max-width: 400px;
+  height: 400px;
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  border-radius: 8px;
+  background: rgba(20, 20, 20, 0.8);
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.shape-status {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 1rem;
+  text-align: center;
+}
+
 @media (max-width: 400px) {
   .title {
     font-size: 2rem;
@@ -531,5 +550,9 @@ h1.title {
   .stillness-circle {
     width: 160px;
     height: 160px;
+  }
+  .drawing-canvas {
+    max-width: 90vw;
+    height: 50vh;
   }
 }

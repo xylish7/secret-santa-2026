@@ -44,6 +44,7 @@
               <button class="debug-level-btn" data-level="3">Level 3</button>
               <button class="debug-level-btn" data-level="4">Level 4</button>
               <button class="debug-level-btn" data-level="5">Level 5</button>
+              <button class="debug-level-btn" data-level="6">Level 6</button>
             </div>
           </div>
         </div>
@@ -54,6 +55,8 @@
         <div class="header">
           <div id="unlocked-digits-container" class="unlocked-digits-container">
             <!-- Digits will be injected here -->
+            <span class="digit-slot empty"></span>
+            <span class="digit-slot empty"></span>
             <span class="digit-slot empty"></span>
             <span class="digit-slot empty"></span>
             <span class="digit-slot empty"></span>
@@ -118,6 +121,12 @@
             <p class="darkness-timer">0s</p>
           </div>
 
+          <!-- Level 6 Specific UI -->
+          <div id="level-6-ui" class="level-ui hidden">
+            <canvas id="drawing-canvas" class="drawing-canvas"></canvas>
+            <p class="shape-status">✏️ Draw a triangle</p>
+          </div>
+
           <!-- Digit Reveal (Hidden by default) -->
           <div id="digit-reveal" class="digit-reveal hidden">
             <div class="digit-card">
@@ -144,6 +153,7 @@
     <script src="levels/level-3-shake.js"></script>
     <script src="levels/level-4-silence.js"></script>
     <script src="levels/level-5-darkness.js"></script>
+    <script src="levels/level-6-shape.js"></script>
 
     <!-- Main App -->
     <script src="app.js"></script>
