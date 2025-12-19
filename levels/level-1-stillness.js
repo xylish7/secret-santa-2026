@@ -6,7 +6,7 @@ class Level1Stillness {
     this.stillnessTimer = 0
     this.lastMotion = { x: 0, y: 0, z: 0 }
     this.stillnessThreshold = 0.3 // Sensitivity
-    this.targetTime = 1 // Seconds
+    this.targetTime = 5 // Seconds
     this.lastFrameTime = 0
     this.isMoving = false
   }

@@ -43,6 +43,7 @@
               <button class="debug-level-btn" data-level="2">Level 2</button>
               <button class="debug-level-btn" data-level="3">Level 3</button>
               <button class="debug-level-btn" data-level="4">Level 4</button>
+              <button class="debug-level-btn" data-level="5">Level 5</button>
             </div>
           </div>
         </div>
@@ -102,6 +103,19 @@
                 <div id="silence-progress" class="progress-fill"></div>
               </div>
             </div>
+            <p class="silence-status">🔇 Listening...</p>
+            <p class="silence-timer">0s</p>
+          </div>
+
+          <!-- Level 5 Specific UI -->
+          <div id="level-5-ui" class="level-ui hidden">
+            <div class="darkness-meter-container">
+              <div class="darkness-circle">
+                <div id="darkness-progress" class="progress-fill"></div>
+              </div>
+            </div>
+            <p class="darkness-status">☀️ Looking for darkness...</p>
+            <p class="darkness-timer">0s</p>
           </div>
 
           <!-- Digit Reveal (Hidden by default) -->
@@ -129,6 +143,7 @@
     <script src="levels/level-2-inversion.js"></script>
     <script src="levels/level-3-shake.js"></script>
     <script src="levels/level-4-silence.js"></script>
+    <script src="levels/level-5-darkness.js"></script>
 
     <!-- Main App -->
     <script src="app.js"></script>

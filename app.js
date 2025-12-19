@@ -96,6 +96,13 @@ class App {
       timer: document.querySelector('#level-4-ui .silence-timer')
     }
 
+    this.ui.level5 = {
+      container: document.getElementById('level-5-ui'),
+      progress: document.getElementById('darkness-progress'),
+      status: document.querySelector('#level-5-ui .darkness-status'),
+      timer: document.querySelector('#level-5-ui .darkness-timer')
+    }
+
     // Initialize fill bar reference
     if (this.ui.level2.fillAnimation) {
       this.ui.level2.fillBar = this.ui.level2.fillAnimation.querySelector('.fill-bar::after')
@@ -108,7 +115,8 @@ class App {
       1: null,
       2: null,
       3: null,
-      4: null
+      4: null,
+      5: null
     }
     this.currentLevelInstance = null
 
@@ -119,6 +127,12 @@ class App {
     if (!this.debugMode) {
       this.ui.debug.style.display = 'none'
     }
+
+    if (!this.ui.startBtn) {
+      console.error('Start button not found')
+      return
+    }
+
     this.ui.startBtn.addEventListener('click', () => this.handleStart())
 
     // Setup debug level selector
@@ -146,6 +160,7 @@ class App {
     this.levels[2] = new Level2Inversion(this)
     this.levels[3] = new Level3Shake(this)
     this.levels[4] = new Level4Silence(this)
+    this.levels[5] = new Level5Darkness(this)
   }
 
   jumpToLevel(level) {
@@ -167,6 +182,9 @@ class App {
     if (this.ui.level4 && this.ui.level4.container) {
       this.ui.level4.container.classList.add('hidden')
     }
+    if (this.ui.level5 && this.ui.level5.container) {
+      this.ui.level5.container.classList.add('hidden')
+    }
 
     // Reset timers
     this.state.isLevelActive = false
@@ -182,22 +200,33 @@ class App {
   }
 
   async handleStart() {
-    const granted = await this.sensors.requestPermission()
-    if (granted) {
-      this.switchScreen('game')
-      if (this.state.currentLevel === 1) {
-        this.currentLevelInstance = this.levels[1]
-        this.currentLevelInstance.start()
-      } else if (this.state.currentLevel === 2) {
-        this.currentLevelInstance = this.levels[2]
-        this.currentLevelInstance.start()
-      } else if (this.state.currentLevel === 3) {
-        this.currentLevelInstance = this.levels[3]
-        this.currentLevelInstance.start()
-      } else if (this.state.currentLevel === 4) {
-        this.currentLevelInstance = this.levels[4]
-        await this.currentLevelInstance.start()
+    console.log('Start button clicked')
+    try {
+      const granted = await this.sensors.requestPermission()
+      console.log('Permissions granted:', granted)
+      if (granted) {
+        this.switchScreen('game')
+        if (this.state.currentLevel === 1) {
+          this.currentLevelInstance = this.levels[1]
+          this.currentLevelInstance.start()
+        } else if (this.state.currentLevel === 2) {
+          this.currentLevelInstance = this.levels[2]
+          this.currentLevelInstance.start()
+        } else if (this.state.currentLevel === 3) {
+          this.currentLevelInstance = this.levels[3]
+          this.currentLevelInstance.start()
+        } else if (this.state.currentLevel === 4) {
+          this.currentLevelInstance = this.levels[4]
+          await this.currentLevelInstance.start()
+        } else if (this.state.currentLevel === 5) {
+          this.currentLevelInstance = this.levels[5]
+          await this.currentLevelInstance.start()
+        }
+      } else {
+        console.log('Permissions not granted')
       }
+    } catch (error) {
+      console.error('Error in handleStart:', error)
     }
   }
 
@@ -217,6 +246,9 @@ class App {
       this.currentLevelInstance.start()
     } else if (this.state.currentLevel === 4) {
       this.currentLevelInstance = this.levels[4]
+      this.currentLevelInstance.start()
+    } else if (this.state.currentLevel === 5) {
+      this.currentLevelInstance = this.levels[5]
       this.currentLevelInstance.start()
     }
   }
