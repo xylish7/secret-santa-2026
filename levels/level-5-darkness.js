@@ -99,26 +99,15 @@ class Level5Darkness {
     // Update darkness timer
     if (isDark) {
       this.darknessTimer += 16 // Approx 60hz
-      if (this.app.ui.level5.status) {
-        this.app.ui.level5.status.textContent = '🌙 Darkness detected'
-      }
     } else {
       // Reset timer if light detected
       this.darknessTimer = 0
-      if (this.app.ui.level5.status) {
-        this.app.ui.level5.status.textContent = '☀️ Light detected'
-      }
     }
 
     // Update UI
     const percent = (this.darknessTimer / this.requiredDarknessTime) * 100
     if (this.app.ui.level5.progress) {
       this.app.ui.level5.progress.style.height = `${Math.min(percent, 100)}%`
-    }
-
-    if (this.app.ui.level5.timer) {
-      const seconds = (this.darknessTimer / 1000).toFixed(1)
-      this.app.ui.level5.timer.textContent = `${seconds}s`
     }
 
     // Debug

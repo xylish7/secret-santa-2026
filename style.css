@@ -31,7 +31,7 @@ body {
   width: 100%;
   height: 100%;
   position: relative;
-  overflow: hidden;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
 }
@@ -397,14 +397,6 @@ h1.title {
   box-shadow: 0 0 20px rgba(192, 57, 43, 0.5);
 }
 
-.silence-status {
-  font-size: 1.2rem;
-  color: var(--accent-gold);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  min-height: 1.5rem;
-}
-
 .silence-meter-container {
   display: flex;
   flex-direction: column;
@@ -512,18 +504,6 @@ h1.title {
   box-shadow: 0 0 20px rgba(41, 128, 185, 0.5);
 }
 
-.darkness-status {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  margin-top: 0.5rem;
-}
-
-.darkness-timer {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  font-family: monospace;
-}
-
 /* Level 6 - Shape Drawing */
 .drawing-canvas {
   width: 100%;
@@ -534,13 +514,6 @@ h1.title {
   background: rgba(20, 20, 20, 0.8);
   cursor: crosshair;
   touch-action: none;
-}
-
-.shape-status {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  margin-top: 1rem;
-  text-align: center;
 }
 
 /* Level 7 Specific - Location */
@@ -587,15 +560,6 @@ h1.title {
   }
 }
 
-.location-status {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  text-align: center;
-  min-height: 1.5rem;
-  margin-top: 1rem;
-  padding: 0 1rem;
-}
-
 /* Level 8 - Touch Seal */
 .touch-seal-container {
   width: 100%;
@@ -617,20 +581,6 @@ h1.title {
   background: rgba(20, 20, 20, 0.6);
   touch-action: none;
   display: block;
-}
-
-.touch-seal-status {
-  font-size: 1.1rem;
-  color: var(--text-secondary);
-  text-align: center;
-  min-height: 1.5rem;
-  margin-top: 1rem;
-  padding: 0 1rem;
-}
-
-.touch-seal-status.complete {
-  color: #4caf50;
-  font-weight: bold;
 }
 
 @media (max-width: 400px) {

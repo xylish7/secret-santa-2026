@@ -81,26 +81,15 @@ class Level4Silence {
     // Update silence timer
     if (isSilent) {
       this.silenceTimer += 16 // Approx 60hz
-      if (this.app.ui.level4.status) {
-        this.app.ui.level4.status.textContent = '🔇 Silence detected'
-      }
     } else {
       // Reset timer if sound detected
       this.silenceTimer = 0
-      if (this.app.ui.level4.status) {
-        this.app.ui.level4.status.textContent = '🔊 Sound detected'
-      }
     }
 
     // Update UI
     const percent = (this.silenceTimer / this.requiredSilenceTime) * 100
     if (this.app.ui.level4.progress) {
       this.app.ui.level4.progress.style.height = `${Math.min(percent, 100)}%`
-    }
-
-    if (this.app.ui.level4.timer) {
-      const seconds = (this.silenceTimer / 1000).toFixed(1)
-      this.app.ui.level4.timer.textContent = `${seconds}s`
     }
 
     // Debug

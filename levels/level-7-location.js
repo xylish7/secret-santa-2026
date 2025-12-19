@@ -40,8 +40,6 @@ class Level7Location {
       maximumAge: 1000
     }
 
-    this.updateStatus('🗺️ Requesting location permission...')
-
     // Watch position continuously
     this.watchId = navigator.geolocation.watchPosition(
       (position) => this.handlePosition(position),
@@ -74,15 +72,10 @@ class Level7Location {
 
     // Update UI with current status
     if (accuracy > 50) {
-      this.updateStatus('🛰️ Improving GPS accuracy...')
     } else if (distance > 1000) {
-      this.updateStatus('🗺️ You are far from the destination')
     } else if (distance > 200) {
-      this.updateStatus('🚶 Getting closer... Keep walking')
     } else if (distance > 100) {
-      this.updateStatus('🎯 Very close! Almost there')
     } else {
-      this.updateStatus('📍 You have arrived at the location!')
       this.isWithinRange = true
     }
 
@@ -106,8 +99,6 @@ class Level7Location {
         break
     }
 
-    this.updateStatus(message)
-
     if (this.app.debugMode) {
       this.app.ui.debug.innerHTML = `Location Error: ${error.code} - ${error.message}`
     }
@@ -129,12 +120,6 @@ class Level7Location {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 
     return R * c // Distance in meters
-  }
-
-  updateStatus(message) {
-    if (this.app.ui.level7.status) {
-      this.app.ui.level7.status.textContent = message
-    }
   }
 
   updateProgress(distance) {
@@ -165,7 +150,6 @@ class Level7Location {
           this.completePuzzle()
         } else {
           const remaining = Math.ceil((this.proximityCheckDelay - this.proximityTimer) / 1000)
-          this.updateStatus(`✅ Confirming location... ${remaining}s`)
         }
       } else {
         this.proximityTimer = 0 // Reset timer if moved away
@@ -188,10 +172,6 @@ class Level7Location {
     // Prepare for next level
     this.app.ui.nextBtn.textContent = 'Start Level 8'
     this.app.ui.nextBtn.classList.remove('hidden')
-  }
-
-  showError(message) {
-    this.updateStatus(`❌ ${message}`)
   }
 
   cleanup() {

@@ -64,7 +64,6 @@
             <span class="digit-slot empty"></span>
             <span class="digit-slot empty"></span>
           </div>
-          <div class="level-indicator">Level <span id="level-number">1</span></div>
         </div>
 
         <div class="content-wrapper centered">
@@ -108,8 +107,6 @@
                 <div id="silence-progress" class="progress-fill"></div>
               </div>
             </div>
-            <p class="silence-status">🔇 Listening...</p>
-            <p class="silence-timer">0s</p>
           </div>
 
           <!-- Level 5 Specific UI -->
@@ -119,14 +116,11 @@
                 <div id="darkness-progress" class="progress-fill"></div>
               </div>
             </div>
-            <p class="darkness-status">☀️ Looking for darkness...</p>
-            <p class="darkness-timer">0s</p>
           </div>
 
           <!-- Level 6 Specific UI -->
           <div id="level-6-ui" class="level-ui hidden">
             <canvas id="drawing-canvas" class="drawing-canvas"></canvas>
-            <p class="shape-status">✏️ Draw a triangle</p>
           </div>
 
           <!-- Level 7 Specific UI -->
@@ -158,14 +152,11 @@
                 <div class="location-icon">📍</div>
               </div>
             </div>
-            <p class="location-status">🗺️ Initializing GPS...</p>
           </div>
 
           <!-- Level 8 Specific UI -->
           <div id="level-8-ui" class="level-ui hidden">
-            <div class="touch-seal-container">
-              <p class="touch-seal-status">✋ Place 5 fingers on the circles</p>
-            </div>
+            <div class="touch-seal-container"></div>
           </div>
 
           <!-- Digit Reveal (Hidden by default) -->

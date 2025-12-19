@@ -56,11 +56,6 @@ class Level6Shape {
     this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e))
     this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e))
     this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e))
-
-    // Update status
-    if (this.app.ui.level6.status) {
-      this.app.ui.level6.status.textContent = '✏️ Draw a triangle'
-    }
   }
 
   handleTouchStart = (e) => {
@@ -174,9 +169,6 @@ class Level6Shape {
   analyzeShape() {
     if (this.points.length < 3) {
       this.clearCanvas()
-      if (this.app.ui.level6.status) {
-        this.app.ui.level6.status.textContent = '❌ Too few points - try again'
-      }
       return
     }
 
@@ -237,25 +229,12 @@ Status: ${
           this.complete()
         } else {
           this.clearCanvas()
-          if (this.app.ui.level6.status) {
-            this.app.ui.level6.status.textContent =
-              closureDistance >= maxClosureDistance
-                ? '❌ Shape not closed - complete the triangle'
-                : '❌ Triangle too small - draw bigger'
-          }
         }
       } else {
         this.clearCanvas()
-        if (this.app.ui.level6.status) {
-          this.app.ui.level6.status.textContent = '❌ Angles too sharp - try again'
-        }
       }
     } else {
       this.clearCanvas()
-      if (this.app.ui.level6.status) {
-        this.app.ui.level6.status.textContent = `❌ Found ${corners.length} corners, need 3`
-      }
-    }
   }
 
   detectCorners() {

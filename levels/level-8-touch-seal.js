@@ -167,7 +167,6 @@ class Level8TouchSeal {
       }
     }
 
-    this.updateStatus()
     this.draw()
   }
 
@@ -208,7 +207,6 @@ class Level8TouchSeal {
       }
     }
 
-    this.updateStatus()
     this.draw()
   }
 
@@ -235,7 +233,6 @@ class Level8TouchSeal {
       }
     }
 
-    this.updateStatus()
     this.draw()
   }
 
@@ -249,7 +246,6 @@ class Level8TouchSeal {
       circle.activeTouches = []
     })
 
-    this.updateStatus()
     this.draw()
   }
 
@@ -270,7 +266,6 @@ class Level8TouchSeal {
       this.playTouchFeedback(circle)
     }
 
-    this.updateStatus()
     this.draw()
   }
 
@@ -292,7 +287,6 @@ class Level8TouchSeal {
       }
     }
 
-    this.updateStatus()
     this.draw()
   }
 
@@ -304,7 +298,6 @@ class Level8TouchSeal {
       this.activeTouches.delete('mouse')
     }
 
-    this.updateStatus()
     this.draw()
   }
 
@@ -369,19 +362,9 @@ class Level8TouchSeal {
     const touchedCount = this.correctlyTouched.size
     const fingersNeeded = this.requiredFingers - touchedCount
 
-    if (this.app.ui.level8 && this.app.ui.level8.status) {
-      if (touchedCount === this.requiredFingers) {
-        this.app.ui.level8.status.textContent = '🌈 Perfect! Rainbow completed!'
-        if (!this.levelComplete) {
-          this.complete()
-        }
-      } else if (touchedCount === 0) {
-        this.app.ui.level8.status.textContent =
-          '🌈 Touch & hold: Red → Orange → Yellow → Green → Blue'
-      } else {
-        const colorNames = ['Red', 'Orange', 'Yellow', 'Green', 'Blue']
-        const nextColor = colorNames[touchedCount]
-        this.app.ui.level8.status.textContent = `🌈 ${touchedCount}/5 - Touch & hold ${nextColor} next`
+    if (touchedCount === this.requiredFingers) {
+      if (!this.levelComplete) {
+        this.complete()
       }
     }
 

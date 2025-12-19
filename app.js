@@ -63,7 +63,6 @@ class App {
     }
     this.ui = {
       startBtn: document.getElementById('start-btn'),
-      levelNumber: document.getElementById('level-number'),
       riddleText: document.getElementById('riddle-text'),
       level1: {
         progress: document.getElementById('stillness-progress'),
@@ -91,32 +90,25 @@ class App {
 
     this.ui.level4 = {
       container: document.getElementById('level-4-ui'),
-      progress: document.getElementById('silence-progress'),
-      status: document.querySelector('#level-4-ui .silence-status'),
-      timer: document.querySelector('#level-4-ui .silence-timer')
+      progress: document.getElementById('silence-progress')
     }
 
     this.ui.level5 = {
       container: document.getElementById('level-5-ui'),
-      progress: document.getElementById('darkness-progress'),
-      status: document.querySelector('#level-5-ui .darkness-status'),
-      timer: document.querySelector('#level-5-ui .darkness-timer')
+      progress: document.getElementById('darkness-progress')
     }
 
     this.ui.level6 = {
-      container: document.getElementById('level-6-ui'),
-      status: document.querySelector('#level-6-ui .shape-status')
+      container: document.getElementById('level-6-ui')
     }
 
     this.ui.level7 = {
       container: document.getElementById('level-7-ui'),
-      progress: document.getElementById('location-progress'),
-      status: document.querySelector('#level-7-ui .location-status')
+      progress: document.getElementById('location-progress')
     }
 
     this.ui.level8 = {
-      container: document.getElementById('level-8-ui'),
-      status: document.querySelector('#level-8-ui .touch-seal-status')
+      container: document.getElementById('level-8-ui')
     }
 
     // Initialize fill bar reference
@@ -124,7 +116,7 @@ class App {
       this.ui.level2.fillBar = this.ui.level2.fillAnimation.querySelector('.fill-bar::after')
     }
 
-    this.debugMode = true // Set to false to hide debug info
+    this.debugMode = false // Set to false to hide debug info
 
     // Level instances
     this.levels = {
@@ -226,7 +218,6 @@ class App {
 
     // Set the current level and start the game
     this.state.currentLevel = level
-    this.ui.levelNumber.textContent = level
     this.handleStart()
   }
 
@@ -276,7 +267,6 @@ class App {
     this.ui.reveal.digit.textContent = '?'
 
     this.state.currentLevel++
-    this.ui.levelNumber.textContent = this.state.currentLevel
 
     if (this.state.currentLevel === 2) {
       this.currentLevelInstance = this.levels[2]
