@@ -437,6 +437,11 @@ class Level7TouchSeal {
       this.app.ui.level7.status.textContent = '✋ All fingers detected! Level Complete!'
     }
 
+    // Disable pointer events on canvas so button is clickable
+    if (this.canvas) {
+      this.canvas.style.pointerEvents = 'none'
+    }
+
     // Haptic feedback
     if (window.navigator && window.navigator.vibrate) {
       window.navigator.vibrate([50, 30, 50])

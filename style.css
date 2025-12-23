@@ -430,6 +430,8 @@ h1.title {
 .digit-reveal {
   margin-top: 2rem;
   animation: fadeIn 0.5s ease;
+  position: relative;
+  z-index: 100;
 }
 
 .digit-reveal.hidden {
