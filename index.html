@@ -126,14 +126,17 @@
 
           <!-- Level 7 Specific UI -->
           <div id="level-7-ui" class="level-ui hidden">
-            <div class="location-meter-container">
-              <div id="location-gradient-circle" class="location-gradient-circle"></div>
-            </div>
+            <div class="touch-seal-container"></div>
           </div>
 
           <!-- Level 8 Specific UI -->
           <div id="level-8-ui" class="level-ui hidden">
-            <div class="touch-seal-container"></div>
+            <div class="multiply-container">
+              <p class="multiply-hint">The Product of All Digits:</p>
+              <div class="result-display-container">
+                <span id="multiply-result" class="result-display">?</span>
+              </div>
+            </div>
           </div>
 
           <!-- Digit Reveal (Hidden by default) -->
@@ -163,8 +166,8 @@
     <script src="levels/level-4-silence.js"></script>
     <script src="levels/level-5-darkness.js"></script>
     <script src="levels/level-6-shape.js"></script>
-    <script src="levels/level-7-location.js"></script>
-    <script src="levels/level-8-touch-seal.js"></script>
+    <script src="levels/level-7-touch-seal.js"></script>
+    <script src="levels/level-8-multiply.js"></script>
 
     <!-- Main App -->
     <script src="app.js"></script>

@@ -144,12 +144,12 @@ class App {
     }
 
     this.ui.level7 = {
-      container: document.getElementById('level-7-ui'),
-      progress: document.getElementById('location-progress')
+      container: document.getElementById('level-7-ui')
     }
 
     this.ui.level8 = {
-      container: document.getElementById('level-8-ui')
+      container: document.getElementById('level-8-ui'),
+      resultDisplay: document.getElementById('multiply-result')
     }
 
     // Initialize fill bar reference
@@ -157,7 +157,7 @@ class App {
       this.ui.level2.fillBar = this.ui.level2.fillAnimation.querySelector('.fill-bar::after')
     }
 
-    this.debugMode = false // Set to false to hide debug info
+    this.debugMode = true // Set to false to hide debug info
 
     // Level instances
     this.levels = {
@@ -214,8 +214,8 @@ class App {
     this.levels[4] = new Level4Silence(this)
     this.levels[5] = new Level5Darkness(this)
     this.levels[6] = new Level6Shape(this)
-    this.levels[7] = new Level7Location(this)
-    this.levels[8] = new Level8TouchSeal(this)
+    this.levels[7] = new Level7TouchSeal(this)
+    this.levels[8] = new Level8Multiply(this)
   }
 
   jumpToLevel(level) {
@@ -333,6 +333,9 @@ class App {
     if (this.ui.level7 && this.ui.level7.container) {
       this.ui.level7.container.classList.add('hidden')
     }
+    if (this.ui.level7 && this.ui.level7.container) {
+      this.ui.level7.container.classList.add('hidden')
+    }
     if (this.ui.level8 && this.ui.level8.container) {
       this.ui.level8.container.classList.add('hidden')
     }
@@ -340,6 +343,13 @@ class App {
     // Hide reveal
     this.ui.reveal.container.classList.add('hidden')
     this.ui.reveal.digit.textContent = '?'
+
+    // Reset next button state
+    if (this.ui.nextBtn) {
+      this.ui.nextBtn.disabled = false
+      this.ui.nextBtn.classList.add('hidden')
+      this.ui.nextBtn.textContent = 'Wait for update...'
+    }
 
     this.state.currentLevel++
 
