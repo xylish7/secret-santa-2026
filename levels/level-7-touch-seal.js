@@ -1,8 +1,8 @@
-class Level8TouchSeal {
+class Level7TouchSeal {
   constructor(app) {
     this.app = app
 
-    // Level 8 Logic - Touch Seal (5 fingers in rainbow order)
+    // Level 7 Logic - Touch Seal (5 fingers in rainbow order)
     this.circles = []
     this.activeTouches = new Map() // Map of touchId -> circle
     this.requiredFingers = 5
@@ -28,12 +28,12 @@ class Level8TouchSeal {
     this.correctlyTouched.clear()
 
     // Update Riddle
-    document.querySelector('.riddle-title').textContent = 'The Eighth Key'
+    document.querySelector('.riddle-title').textContent = 'The Seventh Key'
     this.app.ui.riddleText.textContent = '"Touch the rainbow in order."'
 
-    // Show Level 8 UI
-    if (this.app.ui.level8 && this.app.ui.level8.container) {
-      this.app.ui.level8.container.classList.remove('hidden')
+    // Show Level 7 UI
+    if (this.app.ui.level7 && this.app.ui.level7.container) {
+      this.app.ui.level7.container.classList.remove('hidden')
     }
 
     // Create canvas element
@@ -57,7 +57,7 @@ class Level8TouchSeal {
       canvas.id = 'touch-seal-canvas'
       canvas.className = 'touch-seal-canvas'
 
-      const container = this.app.ui.level8.container
+      const container = this.app.ui.level7.container
       const existingCanvas = container.querySelector('.touch-seal-canvas')
       if (existingCanvas) {
         existingCanvas.remove()
@@ -141,7 +141,7 @@ class Level8TouchSeal {
   }
 
   handleTouchStart = (e) => {
-    if (!this.app.state.isLevelActive || this.app.state.currentLevel !== 8) return
+    if (!this.app.state.isLevelActive || this.app.state.currentLevel !== 7) return
     e.preventDefault()
     e.stopPropagation()
 
@@ -172,7 +172,7 @@ class Level8TouchSeal {
   }
 
   handleTouchMove = (e) => {
-    if (!this.app.state.isLevelActive || this.app.state.currentLevel !== 8) return
+    if (!this.app.state.isLevelActive || this.app.state.currentLevel !== 7) return
     e.preventDefault()
     e.stopPropagation()
 
@@ -212,7 +212,7 @@ class Level8TouchSeal {
   }
 
   handleTouchEnd = (e) => {
-    if (!this.app.state.isLevelActive || this.app.state.currentLevel !== 8) return
+    if (!this.app.state.isLevelActive || this.app.state.currentLevel !== 7) return
     e.preventDefault()
     e.stopPropagation()
 
@@ -238,7 +238,7 @@ class Level8TouchSeal {
   }
 
   handleTouchCancel = (e) => {
-    if (!this.app.state.isLevelActive || this.app.state.currentLevel !== 8) return
+    if (!this.app.state.isLevelActive || this.app.state.currentLevel !== 7) return
     e.preventDefault()
     e.stopPropagation()
 
@@ -251,7 +251,7 @@ class Level8TouchSeal {
   }
 
   handleMouseDown = (e) => {
-    if (!this.app.state.isLevelActive || this.app.state.currentLevel !== 8) return
+    if (!this.app.state.isLevelActive || this.app.state.currentLevel !== 7) return
     const rect = this.canvas.getBoundingClientRect()
     const scaleX = this.canvas.width / rect.width
     const scaleY = this.canvas.height / rect.height
@@ -271,7 +271,7 @@ class Level8TouchSeal {
   }
 
   handleMouseMove = (e) => {
-    if (!this.app.state.isLevelActive || this.app.state.currentLevel !== 8) return
+    if (!this.app.state.isLevelActive || this.app.state.currentLevel !== 7) return
     const rect = this.canvas.getBoundingClientRect()
     const scaleX = this.canvas.width / rect.width
     const scaleY = this.canvas.height / rect.height
@@ -292,7 +292,7 @@ class Level8TouchSeal {
   }
 
   handleMouseUp = (e) => {
-    if (!this.app.state.isLevelActive || this.app.state.currentLevel !== 8) return
+    if (!this.app.state.isLevelActive || this.app.state.currentLevel !== 7) return
     const circle = this.activeTouches.get('mouse')
     if (circle) {
       circle.touched = false
@@ -433,8 +433,8 @@ class Level8TouchSeal {
     this.levelComplete = true
     this.app.state.isLevelActive = false
 
-    if (this.app.ui.level8 && this.app.ui.level8.status) {
-      this.app.ui.level8.status.textContent = '✋ All fingers detected! Level Complete!'
+    if (this.app.ui.level7 && this.app.ui.level7.status) {
+      this.app.ui.level7.status.textContent = '✋ All fingers detected! Level Complete!'
     }
 
     // Haptic feedback
@@ -445,7 +445,8 @@ class Level8TouchSeal {
     // Wait a moment, then reveal the digit
     setTimeout(() => {
       this.app.revealDigit('4')
-      this.app.ui.nextBtn.textContent = 'All Levels Complete!'
+      this.app.ui.nextBtn.disabled = false
+      this.app.ui.nextBtn.textContent = 'Final Level →'
       this.app.ui.nextBtn.classList.remove('hidden')
     }, 1500)
   }
