@@ -132,10 +132,19 @@
           <!-- Level 8 Specific UI -->
           <div id="level-8-ui" class="level-ui hidden">
             <div class="multiply-container">
-              <p class="multiply-hint">The Product of All Digits:</p>
-              <div class="result-display-container">
-                <span id="multiply-result" class="result-display">?</span>
+              <p class="multiply-hint">
+                Multiply all the digits you've unlocked and enter the result:
+              </p>
+              <div class="input-group">
+                <input
+                  type="number"
+                  id="multiply-input"
+                  class="multiply-input"
+                  placeholder="Enter the product"
+                />
+                <button id="multiply-submit" class="multiply-submit-btn">Submit Answer</button>
               </div>
+              <div id="multiply-feedback" class="multiply-feedback hidden"></div>
             </div>
           </div>
 
