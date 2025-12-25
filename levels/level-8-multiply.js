@@ -103,7 +103,7 @@ class Level8Multiply {
     } else {
       // Wrong answer
       feedback.classList.remove('hidden')
-      feedback.textContent = `Incorrect. Try again. (Hint: Product of all digits)`
+      feedback.textContent = `Incorrect. Try again.`
       feedback.style.color = '#c0392b'
       input.value = ''
       input.focus()
