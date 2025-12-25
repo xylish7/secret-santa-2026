@@ -38,7 +38,7 @@ class Level8Multiply {
 
     // Set the riddle text
     this.app.ui.riddleText.textContent =
-      '"And we know that in all things God works for the good of those who love him." - Romans 8:28'
+      '"Cuvântul lui Dumnezeu se răspândea tot mai mult, numărul ucenicilor se înmulţea mult în Ierusalim şi o mare mulţime de preoţi veneau la credinţă." - Faptele apostolilor 6:7'
 
     // Calculate the product of all digits
     this.expectedProduct = this.app.state.unlockedDigits.reduce((acc, digit) => {
