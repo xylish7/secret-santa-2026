@@ -69,24 +69,6 @@ class SensorManager {
       cameraGranted = false
     }
 
-    // 5. Location Permission
-    if ('geolocation' in navigator) {
-      try {
-        const position = await Promise.race([
-          new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(resolve, reject)
-          }),
-          new Promise((_, reject) =>
-            setTimeout(() => reject(new Error('Geolocation timeout')), 5000)
-          )
-        ])
-        locationGranted = true
-      } catch (error) {
-        console.warn('Location permission denied or unavailable:', error)
-        locationGranted = false
-      }
-    }
-
     this.hasPermission = motionGranted && orientationGranted
     return this.hasPermission
   }
