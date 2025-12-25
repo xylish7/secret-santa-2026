@@ -29,7 +29,8 @@ class Level7TouchSeal {
 
     // Update Riddle
     document.querySelector('.riddle-title').textContent = 'The Seventh Key'
-    this.app.ui.riddleText.textContent = '"Touch the rainbow in order."'
+    this.app.ui.riddleText.textContent =
+      '"His faithfulness will be your shield and rampart." - Psalm 91:4'
 
     // Show Level 7 UI
     if (this.app.ui.level7 && this.app.ui.level7.container) {
@@ -449,7 +450,7 @@ class Level7TouchSeal {
 
     // Wait a moment, then reveal the digit
     setTimeout(() => {
-      this.app.revealDigit('4')
+      this.app.revealDigit('1')
       this.app.ui.nextBtn.disabled = false
       this.app.ui.nextBtn.textContent = 'Final Level →'
       this.app.ui.nextBtn.classList.remove('hidden')

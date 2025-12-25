@@ -19,7 +19,8 @@ class Level4Silence {
 
     // Update Riddle
     document.querySelector('.riddle-title').textContent = 'The Fourth Key'
-    this.app.ui.riddleText.textContent = '"Only quiet minds may proceed."'
+    this.app.ui.riddleText.textContent =
+      '"In quietness and confidence shall be your strength." - Isaiah 30:15'
 
     // Show Level 4 UI
     if (this.app.ui.level4 && this.app.ui.level4.container) {
@@ -123,7 +124,7 @@ Progress: ${percent?.toFixed(0)}%`
     }
 
     // Reveal Digit '9'
-    this.app.revealDigit('9')
+    this.app.revealDigit('5')
 
     this.app.ui.nextBtn.textContent = 'Start Level 5'
     this.app.ui.nextBtn.classList.remove('hidden')

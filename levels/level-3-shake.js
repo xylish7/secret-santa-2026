@@ -16,7 +16,8 @@ class Level3Shake {
 
     // Update Riddle
     document.querySelector('.riddle-title').textContent = 'The Third Key'
-    this.app.ui.riddleText.textContent = '"Wake what sleeps."'
+    this.app.ui.riddleText.textContent =
+      '"Awake, and rise from the dead, and Christ will give you light." - Ephesians 5:14'
 
     // Show Level 3 UI
     if (this.app.ui.level3 && this.app.ui.level3.container) {

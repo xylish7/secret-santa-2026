@@ -16,7 +16,7 @@ class Level2Inversion {
     this.app.state.isLevelActive = true
     // Update Riddle
     document.querySelector('.riddle-title').textContent = 'The Second Key'
-    this.app.ui.riddleText.textContent = '"Truth hides beneath the world."'
+    this.app.ui.riddleText.textContent = '"The meek shall inherit the earth." - Matthew 5:5'
 
     // Show Level 2 UI
     this.app.ui.level2.container.classList.remove('hidden')
@@ -77,7 +77,7 @@ class Level2Inversion {
     this.app.ui.level2.container.classList.add('hidden')
 
     // Reveal Digit '4'
-    this.app.revealDigit('4')
+    this.app.revealDigit('2')
 
     this.app.ui.nextBtn.textContent = 'Start Level 3'
     this.app.ui.nextBtn.classList.remove('hidden')

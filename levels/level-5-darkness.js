@@ -19,7 +19,7 @@ class Level5Darkness {
 
     // Update Riddle
     document.querySelector('.riddle-title').textContent = 'The Fifth Key'
-    this.app.ui.riddleText.textContent = '"Close the eye that sees."'
+    this.app.ui.riddleText.textContent = '"The Lord is my light and my salvation." - Psalm 27:1'
 
     // Show Level 5 UI
     if (this.app.ui.level5 && this.app.ui.level5.container) {
@@ -140,7 +140,7 @@ Progress: ${darknessPercent?.toFixed(0)}%`
     }
 
     // Reveal Digit '9'
-    this.app.revealDigit('1')
+    this.app.revealDigit('2')
 
     this.app.ui.nextBtn.textContent = 'Start Level 6'
     this.app.ui.nextBtn.classList.remove('hidden')

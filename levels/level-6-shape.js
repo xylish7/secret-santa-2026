@@ -21,7 +21,8 @@ class Level6Shape {
 
     // Update Riddle
     document.querySelector('.riddle-title').textContent = 'The Sixth Key'
-    this.app.ui.riddleText.textContent = '"Draw the mark of passage."'
+    this.app.ui.riddleText.textContent =
+      '"By faith we draw our vision of what cannot be seen." - Hebrews 11:1'
 
     // Show Level 6 UI
     if (this.app.ui.level6 && this.app.ui.level6.container) {
@@ -354,7 +355,7 @@ Status: ${
     }
 
     // Reveal Digit '2'
-    this.app.revealDigit('3')
+    this.app.revealDigit('4')
 
     this.app.ui.nextBtn.textContent = 'Start Level 7'
     this.app.ui.nextBtn.classList.remove('hidden')

@@ -13,7 +13,8 @@ class Level1Stillness {
 
   start() {
     this.app.state.isLevelActive = true
-    this.app.ui.riddleText.textContent = '"Begin where nothing moves..."'
+    this.app.ui.riddleText.textContent =
+      '"Nu veţi avea de luptat în lupta aceasta; aşezaţi-vă, staţi acolo şi veţi vedea izbăvirea pe care v-o va da Domnul." - 2 Cronici 20:17'
     this.app.ui.level1.container.style.display = 'block'
 
     // Ensure Level 2 is hidden

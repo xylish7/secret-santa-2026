@@ -38,7 +38,7 @@ class Level8Multiply {
 
     // Set the riddle text
     this.app.ui.riddleText.textContent =
-      '"The answer lies not in the numbers you found, but in their union. Multiply them all to unlock the final secret."'
+      '"And we know that in all things God works for the good of those who love him." - Romans 8:28'
 
     // Calculate the product of all digits
     this.expectedProduct = this.app.state.unlockedDigits.reduce((acc, digit) => {
