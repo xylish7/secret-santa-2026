@@ -20,7 +20,7 @@ class Level4Silence {
     // Update Riddle
     document.querySelector('.riddle-title').textContent = 'The Fourth Key'
     this.app.ui.riddleText.textContent =
-      '"In quietness and confidence shall be your strength." - Isaiah 30:15'
+      '"ruptul îşi are vremea lui, şi cusutul îşi are vremea lui; tăcerea îşi are vremea ei, şi vorbirea îşi are vremea ei;" - Eclesiastul 3:7'
 
     // Show Level 4 UI
     if (this.app.ui.level4 && this.app.ui.level4.container) {

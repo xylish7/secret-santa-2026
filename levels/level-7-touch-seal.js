@@ -30,7 +30,7 @@ class Level7TouchSeal {
     // Update Riddle
     document.querySelector('.riddle-title').textContent = 'The Seventh Key'
     this.app.ui.riddleText.textContent =
-      '"His faithfulness will be your shield and rampart." - Psalm 91:4'
+      '"curcubeul Meu, pe care l-am aşezat în nor, el va sluji ca semn al legământului dintre Mine şi pământ." - Geneza 9:13'
 
     // Show Level 7 UI
     if (this.app.ui.level7 && this.app.ui.level7.container) {

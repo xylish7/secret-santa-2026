@@ -17,7 +17,7 @@ class Level3Shake {
     // Update Riddle
     document.querySelector('.riddle-title').textContent = 'The Third Key'
     this.app.ui.riddleText.textContent =
-      '"Awake, and rise from the dead, and Christ will give you light." - Ephesians 5:14'
+      '"Deodată, s-a făcut un mare cutremur de pământ, aşa că s-au clătinat temeliile temniţei. Îndată, s-au deschis toate uşile şi s-au dezlegat legăturile fiecăruia." - Faptele apostolilor 16:26'
 
     // Show Level 3 UI
     if (this.app.ui.level3 && this.app.ui.level3.container) {

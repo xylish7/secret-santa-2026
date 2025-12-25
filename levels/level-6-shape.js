@@ -22,7 +22,7 @@ class Level6Shape {
     // Update Riddle
     document.querySelector('.riddle-title').textContent = 'The Sixth Key'
     this.app.ui.riddleText.textContent =
-      '"By faith we draw our vision of what cannot be seen." - Hebrews 11:1'
+      '"Duceţi-vă şi faceţi ucenici din toate neamurile, botezându-i în Numele Tatălui şi al Fiului şi al Sfântului Duh." - Matei 28:19'
 
     // Show Level 6 UI
     if (this.app.ui.level6 && this.app.ui.level6.container) {

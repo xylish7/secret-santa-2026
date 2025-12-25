@@ -19,7 +19,8 @@ class Level5Darkness {
 
     // Update Riddle
     document.querySelector('.riddle-title').textContent = 'The Fifth Key'
-    this.app.ui.riddleText.textContent = '"The Lord is my light and my salvation." - Psalm 27:1'
+    this.app.ui.riddleText.textContent =
+      '"Domnul a zis lui Moise: „Întinde-ţi mâna spre cer, şi va fi întuneric peste ţara Egiptului, aşa de întuneric de să se poată pipăi.”" - Exodul 10:21'
 
     // Show Level 5 UI
     if (this.app.ui.level5 && this.app.ui.level5.container) {

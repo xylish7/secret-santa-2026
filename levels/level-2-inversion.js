@@ -16,7 +16,8 @@ class Level2Inversion {
     this.app.state.isLevelActive = true
     // Update Riddle
     document.querySelector('.riddle-title').textContent = 'The Second Key'
-    this.app.ui.riddleText.textContent = '"The meek shall inherit the earth." - Matthew 5:5'
+    this.app.ui.riddleText.textContent =
+      '"Atunci, omul a plecat capul şi s-a aruncat cu faţa la pământ înaintea Domnului," - Geneza 24:26'
 
     // Show Level 2 UI
     this.app.ui.level2.container.classList.remove('hidden')
